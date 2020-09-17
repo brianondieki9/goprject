@@ -3,8 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
+<<<<<<< HEAD
 	"net/http"
 	"text/template"
+=======
+>>>>>>> 5f36de8b784b8aa428221a561764e0f490ae64b7
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -96,6 +99,7 @@ func New(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	db := dbConn()
+<<<<<<< HEAD
 
 	selDB, err := db.Query("SELECT * FROM Employee ORDER BY id DESC")
 	if err != nil {
@@ -119,5 +123,30 @@ func main() {
 		res = append(res, emp)
 	}
 
+=======
+
+	selDB, err := db.Query("SELECT * FROM Employee ORDER BY id DESC")
+	if err != nil {
+		panic(err.Error())
+	}
+	emp := Employee{}
+	res := []Employee{}
+
+	for selDB.Next() {
+		var id int
+		var name, city string
+		err = selDB.Scan(&id, &name, &city)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		emp.Id = id
+		emp.Name = name
+		emp.City = city
+
+		res = append(res, emp)
+	}
+
+>>>>>>> 5f36de8b784b8aa428221a561764e0f490ae64b7
 	fmt.Println(res)
 }
